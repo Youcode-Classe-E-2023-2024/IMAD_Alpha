@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html x-data="data()" lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet" />
+        <!-- Favicon -->
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
+
+            h1 {
+                font-size: 24px;
+                font-weight: 400;
+                text-align: center;
+            }
+
+            img {
+                height: auto;
+                max-width: 100%;
+                vertical-align: middle;
+            }
+
+            .btn {
+                color: #ffffff;
+                padding: 0.8rem;
+                font-size: 14px;
+                text-transform: uppercase;
+                border-radius: 4px;
+                font-weight: 400;
+                display: block;
+                width: 100%;
+                cursor: pointer;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                background: transparent;
+            }
+
+            .btn:hover {
+                background-color: rgba(255, 255, 255, 0.12);
+            }
+
+            .cards {
+                display: flex;
+                flex-wrap: wrap;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+
+
+            @media (min-width: 40rem) {
+                .cards_item {
+                    width: 50%;
+                }
+            }
+
+            @media (min-width: 56rem) {
+                .cards_item {
+                    width: 33.3333%;
+                }
+            }
+
+            .card {
+                background-color: white;
+                border-radius: 0.25rem;
+                box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            .card_content {
+                padding: 1rem;
+                background: linear-gradient(to bottom left, #EF8D9C 40%, #FFC39E 100%);
+            }
+
+            .card_title {
+                color: #ffffff;
+                font-size: 1.1rem;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-transform: capitalize;
+                margin: 0px;
+            }
+
+            .card_text {
+                color: #ffffff;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                margin-bottom: 1.25rem;
+                font-weight: 400;
+            }
+
+            .made_by {
+                font-weight: 400;
+                font-size: 13px;
+                margin-top: 35px;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="flex h-screen bg-gray-800 " :class="{ 'overflow-hidden': isSideMenuOpen }">
+            <!-- Desktop sidebar -->
+            <aside class="z-20 flex-shrink-0 hidden w-60 pl-2 overflow-y-auto bg-gray-800 md:block">
+                <div>
+                    <div class="text-white">
+                        <div class="flex p-2  bg-gray-800">
+                            <div class="flex py-3 px-2 items-center">
+                                <p class="text-2xl text-green-500 font-semibold"></p <p
+                                    class="ml-2 font-semibold italic">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="">
+                                <img class="hidden h-24 w-24 rounded-full sm:block object-cover mr-2 border-4 border-green-400"
+                                    src="7O2A9651.JPG" alt="">
+                                <p class="font-bold text-base  text-gray-400 pt-2 text-center w-24">khawla</p>
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="mt-6 leading-10">
+                                <li class="relative px-2 py-1 ">
+                                    <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
+                                        href="dashboard.html">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        <span class="ml-4">DASHBOARD</span>
+                                    </a>
+                                </li>
+                                <li class="relative px-2 py-1" x-data="{ Open : false  }">
+                                    <div class="inline-flex items-center justify-between w-full text-base font-semibold transition-colors duration-150 text-gray-500  hover:text-yellow-400 cursor-pointer"
+                                        x-on:click="Open = !Open">
+                                        <span
+                                            class="inline-flex items-center  text-sm font-semibold text-white hover:text-green-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20" />
+                                            </svg>
+                                            <span class="ml-4">ITEM</span>
+                                        </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" x-show="!Open"
+                                            class="ml-1  text-white w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor" style="display: none;">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 19l-7-7 7-7" />
+                                        </svg>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" x-show="Open"
+                                            class="ml-1  text-white w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor" style="display: none;">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+
+                                    <div x-show.transition="Open" style="display:none;">
+                                        <ul x-transition:enter="transition-all ease-in-out duration-300"
+                                            x-transition:enter-start="opacity-25 max-h-0"
+                                            x-transition:enter-end="opacity-100 max-h-xl"
+                                            x-transition:leave="transition-all ease-in-out duration-300"
+                                            x-transition:leave-start="opacity-100 max-h-xl"
+                                            x-transition:leave-end="opacity-0 max-h-0"
+                                            class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium  rounded-md shadow-inner  bg-green-400"
+                                            aria-label="submenu">
+
+                                            <li class="px-2 py-1 text-white transition-colors duration-150">
+                                                <div class="px-1 hover:text-gray-800 hover:bg-gray-100 rounded-md">
+                                                    <div class="flex items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                                        </svg>
+                                                        <a href="#"
+                                                            class="w-full ml-2  text-sm font-semibold text-white hover:text-gray-800">Item
+                                                            1</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Mobile sidebar -->
+            <!-- Backdrop -->
+            <div x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
+                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+            </div>
+
+            <aside
+                class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto  bg-gray-900 dark:bg-gray-800 md:hidden"
+                x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
+                x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
+                @keydown.escape="closeSideMenu">
+                <div>
+                    <div class="text-white">
+                        <div class="flex p-2  bg-gray-800">
+                            <div class="flex py-3 px-2 items-center">
+                                <p class="text-2xl text-green-500 font-semibold">SA</p <p
+                                    class="ml-2 font-semibold italic">
+                                DASHBOARD</p>
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="mt-6 leading-10">
+                                <li class="relative px-2 py-1 ">
+                                    <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
+                                        href=" #">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        <span class="ml-4">DASHBOARD</span>
+                                    </a>
+                                </li>
+                                <li class="relative px-2 py-1" x-data="{ Open : false  }">
+                                    <div class="inline-flex items-center justify-between w-full text-base font-semibold transition-colors duration-150 text-gray-500  hover:text-yellow-400 cursor-pointer"
+                                        x-on:click="Open = !Open">
+                                        <span
+                                            class="inline-flex items-center  text-sm font-semibold text-white hover:text-green-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20" />
+                                            </svg>
+                                            <span class="ml-4">ITEM</span>
+                                        </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" x-show="!Open"
+                                            class="ml-1  text-white w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor" style="display: none;">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 19l-7-7 7-7" />
+                                        </svg>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" x-show="Open"
+                                            class="ml-1  text-white w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor" style="display: none;">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+
+                                    <div x-show.transition="Open" style="display:none;">
+                                        <ul x-transition:enter="transition-all ease-in-out duration-300"
+                                            x-transition:enter-start="opacity-25 max-h-0"
+                                            x-transition:enter-end="opacity-100 max-h-xl"
+                                            x-transition:leave="transition-all ease-in-out duration-300"
+                                            x-transition:leave-start="opacity-100 max-h-xl"
+                                            x-transition:leave-end="opacity-0 max-h-0"
+                                            class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium  rounded-md shadow-inner  bg-green-400"
+                                            aria-label="submenu">
+
+                                            <li class="px-2 py-1 text-white transition-colors duration-150">
+                                                <div class="px-1 hover:text-gray-800 hover:bg-gray-100 rounded-md">
+                                                    <div class="flex items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                                        </svg>
+                                                        <a href="#"
+                                                            class="w-full ml-2  text-sm font-semibold text-white hover:text-gray-800">Item
+                                                            1</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="flex flex-col flex-1 w-full overflow-y-auto">
+                <header class="z-40 py-4  bg-gray-800  ">
+                    <div class="flex items-center justify-between h-8 px-6 mx-auto">
+                        <!-- Mobile hamburger -->
+                        <button
+                            class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+                            @click="toggleSideMenu" aria-label="Menu">
+                            <x-heroicon-o-menu class="w-6 h-6 text-white" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h7" />
+                            </svg>
+                        </button>
+
+                        <!-- Search Input -->
+                        <div class="flex justify-center  mt-2 mr-4">
+                            <div class="relative flex w-full flex-wrap items-stretch mb-3">
+                                <input type="search" placeholder="Search" {{ $attributes }}
+                                    class="form-input px-3 py-2 placeholder-gray-400 text-gray-700 relative bg-white rounded-lg text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pr-10" />
+                                <span
+                                    class="z-10 h-full leading-snug font-normal  text-center text-gray-400 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -mt-1" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        <ul class="flex items-center flex-shrink-0 space-x-6">
+
+                            <!-- Notifications menu -->
+                            <li class="relative">
+                                <button
+                                    class="p-2 bg-white text-green-400 align-middle rounded-full hover:text-white hover:bg-green-400 focus:outline-none "
+                                    @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu"
+                                    aria-label="Notifications" aria-haspopup="true">
+                                    <div class="flex items-cemter">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                        </svg>
+                                    </div>
+                                    <!-- Notification badge -->
+                                    <span aria-hidden="true"
+                                        class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"></span>
+                                </button>
+                                <template x-if="isNotificationsMenuOpen">
+                                    <ul x-transition:leave="transition ease-in duration-150"
+                                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                        @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu"
+                                        class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-green-400 border border-green-500 rounded-md shadow-md">
+                                        <li class="flex">
+                                            <a class="text-white inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                                href="#">
+                                                <span>Messages</span>
+                                                <span
+                                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
+                                                    13
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </template>
+                            </li>
+
+                            <!-- Profile menu -->
+                            <li class="relative">
+                                <button
+                                    class="p-2 bg-white text-green-400 align-middle rounded-full hover:text-white hover:bg-green-400 focus:outline-none "
+                                    @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
+                                    aria-haspopup="true">
+                                    <div class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                </button>
+                                <template x-if="isProfileMenuOpen">
+                                    <ul x-transition:leave="transition ease-in duration-150"
+                                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                        @click.away="closeProfileMenu" @keydown.escape="closeProfileMenu"
+                                        class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-green-400 border border-green-500 rounded-md shadow-md"
+                                        aria-label="submenu">
+                                        <li class="flex">
+                                            <a class=" text-white inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                                href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2"
+                                                    viewBox="0 0 448 512">
+                                                    <path path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                                                </svg>
+                                                <span>Profile</span>
+                                            </a>
+                                        </li>
+                                        <li class="flex">
+                                            <a class="text-white inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                                href="login.html">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill=""
+                                                    viewBox="0 0 512 512" stroke="currentColor">
+                                                    <path
+                                                        d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
+                                                </svg>
+                                                <span>Log out</span>
+                                            </a>
+                                        </li>
+                                        <li class="flex">
+                                            <button class="text-white buttonchange inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill=""
+                                                    viewBox="0 0 512 512" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M105.1 202.6c7.7-21.8 20.2-42.3 37.8-59.8c62.5-62.5 163.8-62.5 226.3 0L386.3 160H352c-17.7 0-32 14.3-32 32s14.3 32 32 32H463.5c0 0 0 0 0 0h.4c17.7 0 32-14.3 32-32V80c0-17.7-14.3-32-32-32s-32 14.3-32 32v35.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5zM39 289.3c-5 1.5-9.8 4.2-13.7 8.2c-4 4-6.7 8.8-8.1 14c-.3 1.2-.6 2.5-.8 3.8c-.3 1.7-.4 3.4-.4 5.1V432c0 17.7 14.3 32 32 32s32-14.3 32-32V396.9l17.6 17.5 0 0c87.5 87.4 229.3 87.4 316.7 0c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.5 62.5-163.8 62.5-226.3 0l-.1-.1L125.6 352H160c17.7 0 32-14.3 32-32s-14.3-32-32-32H48.4c-1.6 0-3.2 .1-4.8 .3s-3.1 .5-4.6 1z" />
+                                        </svg>
+                                                <span>changer list</span>
+                                    </button>
+                                    <script>
+                                        document.querySelector(".buttonchange").addEventListener("click", () => {
+    console.log("hi");
+
+    var firstDiv = document.querySelector('.firstdiv');
+    var usersDiv = document.querySelector('.usersdiv');
+
+    if (firstDiv.classList.contains('hidden')) {
+        firstDiv.classList.remove('hidden');
+        usersDiv.classList.add('hidden');
+    } else {
+        firstDiv.classList.add('hidden');
+        usersDiv.classList.remove('hidden');
+    }
+});
+                                    </script>
+                                        </li>
+                                        <li class="flex">
+                                            <a class="text-white inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                                onclick="my_modal_1.showModal()" href="#" id="modals">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2"
+                                                    viewBox="0 0 576 512">
+                                                    <path
+                                                        d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM252 160c0 11 9 20 20 20h44v44c0 11 9 20 20 20s20-9 20-20V180h44c11 0 20-9 20-20s-9-20-20-20H356V96c0-11-9-20-20-20s-20 9-20 20v44H272c-11 0-20 9-20 20z" />
+                                                </svg>
+                                                <span>add product</span>
+                                            </a>
+                                            <dialog id="my_modal_1" class="modal">
+                                                <div class="modal-box">
+                                                    <h3 class="font-bold text-lg italic text-center">add your product
+                                                    </h3>
+
+                                                    <form class="" method="dialog">
+                                                        <div class="relative mt-5">
+                                                            <input
+                                                                class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                                                                id="username" type="file" placeholder="Email" />
+                                                            <div class="absolute left-0 inset-y-0 flex items-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-7 w-7 ml-3 text-gray-400 p-1"
+                                                                    viewBox="0 0 512 512" fill="currentColor">
+                                                                    <path
+                                                                        d="M448 80c8.8 0 16 7.2 16 16V415.8l-5-6.5-136-176c-4.5-5.9-11.6-9.3-19-9.3s-14.4 3.4-19 9.3L202 340.7l-30.5-42.7C167 291.7 159.8 288 152 288s-15 3.7-19.5 10.1l-80 112L48 416.3l0-.3V96c0-8.8 7.2-16 16-16H448zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z" />
+                                                                </svg>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="relative mt-3">
+                                                            <input
+                                                                class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                                                                id="title" type="text" placeholder="title" />
+                                                            <div class="absolute left-0 inset-y-0 flex items-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-7 w-7 ml-3 text-gray-400 p-1"
+                                                                    viewBox="0 0 576 512" fill="currentColor">
+                                                                    <path
+                                                                        d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                                                                </svg>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="relative mt-3">
+                                                            <input
+                                                                class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                                                                id="prix" type="text" placeholder="prix" />
+                                                            <div class="absolute left-0 inset-y-0 flex items-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-7 w-7 ml-3 text-gray-400 p-1"
+                                                                    viewBox="0 0 576 512" fill="currentColor">
+                                                                    <path
+                                                                        d="M312 24V34.5c6.4 1.2 12.6 2.7 18.2 4.2c12.8 3.4 20.4 16.6 17 29.4s-16.6 20.4-29.4 17c-10.9-2.9-21.1-4.9-30.2-5c-7.3-.1-14.7 1.7-19.4 4.4c-2.1 1.3-3.1 2.4-3.5 3c-.3 .5-.7 1.2-.7 2.8c0 .3 0 .5 0 .6c.2 .2 .9 1.2 3.3 2.6c5.8 3.5 14.4 6.2 27.4 10.1l.9 .3c11.1 3.3 25.9 7.8 37.9 15.3c13.7 8.6 26.1 22.9 26.4 44.9c.3 22.5-11.4 38.9-26.7 48.5c-6.7 4.1-13.9 7-21.3 8.8V232c0 13.3-10.7 24-24 24s-24-10.7-24-24V220.6c-9.5-2.3-18.2-5.3-25.6-7.8c-2.1-.7-4.1-1.4-6-2c-12.6-4.2-19.4-17.8-15.2-30.4s17.8-19.4 30.4-15.2c2.6 .9 5 1.7 7.3 2.5c13.6 4.6 23.4 7.9 33.9 8.3c8 .3 15.1-1.6 19.2-4.1c1.9-1.2 2.8-2.2 3.2-2.9c.4-.6 .9-1.8 .8-4.1l0-.2c0-1 0-2.1-4-4.6c-5.7-3.6-14.3-6.4-27.1-10.3l-1.9-.6c-10.8-3.2-25-7.5-36.4-14.4c-13.5-8.1-26.5-22-26.6-44.1c-.1-22.9 12.9-38.6 27.7-47.4c6.4-3.8 13.3-6.4 20.2-8.2V24c0-13.3 10.7-24 24-24s24 10.7 24 24zM568.2 336.3c13.1 17.8 9.3 42.8-8.5 55.9L433.1 485.5c-23.4 17.2-51.6 26.5-80.7 26.5H192 32c-17.7 0-32-14.3-32-32V416c0-17.7 14.3-32 32-32H68.8l44.9-36c22.7-18.2 50.9-28 80-28H272h16 64c17.7 0 32 14.3 32 32s-14.3 32-32 32H288 272c-8.8 0-16 7.2-16 16s7.2 16 16 16H392.6l119.7-88.2c17.8-13.1 42.8-9.3 55.9 8.5zM193.6 384l0 0-.9 0c.3 0 .6 0 .9 0z" />
+                                                                </svg>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex mt-5">
+                                                            <button href="#_"
+                                                                class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-bold text-white rounded-md shadow-2xl group border border-black">
+                                                                <span
+                                                                    class="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"></span>
+                                                                <span
+                                                                    class="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>
+                                                                <span
+                                                                    class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent opacity-5"></span>
+                                                                <span
+                                                                    class="absolute bottom-0 left-0 w-4 h-full bg-gradient-to-r from-white to-transparent opacity-5"></span>
+                                                                <span
+                                                                    class="absolute bottom-0 right-0 w-4 h-full bg-gradient-to-l from-white to-transparent opacity-5"></span>
+                                                                <span
+                                                                    class="absolute inset-0 w-full h-full border border-white rounded-md opacity-10"></span>
+                                                                <span
+                                                                    class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5"></span>
+                                                                <span class="relative italic text-black" class="btn">save</button>
+                                                                                                                        </form>
+                                                </div>
+                                                <div class="flex mt-3">
+                                                    <button href="#_"
+                                                        class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-bold text-white rounded-md shadow-2xl group border border-black">
+                                                        <span
+                                                            class="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"></span>
+                                                        <span
+                                                            class="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>
+                                                        <span
+                                                            class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent opacity-5"></span>
+                                                        <span
+                                                            class="absolute bottom-0 left-0 w-4 h-full bg-gradient-to-r from-white to-transparent opacity-5"></span>
+                                                        <span
+                                                            class="absolute bottom-0 right-0 w-4 h-full bg-gradient-to-l from-white to-transparent opacity-5"></span>
+                                                        <span
+                                                            class="absolute inset-0 w-full h-full border border-white rounded-md opacity-10"></span>
+                                                        <span
+                                                            class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5"></span>
+                                                        <span class="relative italic text-black" class="btn">plus</button>
+                                    </div>
+
+                    </div>
+                    </dialog>
+                    </li>
+                    <li class="flex">
+                        <a class="text-white inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                        onclick="my_modal_2.showModal()" href="#" id="modals">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 640 512">
+                                <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/>
+                            </svg>
+                            <span>add user</span>
+                        </a>
+                        <dialog id="my_modal_2" class="modal">
+                            <div class="modal-box">
+                                <h3 class="font-bold text-lg italic text-center">add user
+                                </h3>
+
+                                <form class="" method="dialog">
+                                   
+                                    <div class="relative mt-3">
+                                        <input
+                                            class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                                            id="website" type="text" placeholder="website" />
+                                        <div class="absolute left-0 inset-y-0 flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="h-7 w-7 ml-3 text-gray-400 p-1"
+                                                viewBox="0 0 576 512" fill="currentColor">
+                                                <path
+                                                    d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                                            </svg>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="relative mt-3">
+                                        <input
+                                            class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                                            id="username" type="text" placeholder="username" />
+                                        <div class="absolute left-0 inset-y-0 flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="h-7 w-7 ml-3 text-gray-400 p-1"
+                                                viewBox="0 0 576 512" fill="currentColor">
+                                                <path
+                                                    d="M312 24V34.5c6.4 1.2 12.6 2.7 18.2 4.2c12.8 3.4 20.4 16.6 17 29.4s-16.6 20.4-29.4 17c-10.9-2.9-21.1-4.9-30.2-5c-7.3-.1-14.7 1.7-19.4 4.4c-2.1 1.3-3.1 2.4-3.5 3c-.3 .5-.7 1.2-.7 2.8c0 .3 0 .5 0 .6c.2 .2 .9 1.2 3.3 2.6c5.8 3.5 14.4 6.2 27.4 10.1l.9 .3c11.1 3.3 25.9 7.8 37.9 15.3c13.7 8.6 26.1 22.9 26.4 44.9c.3 22.5-11.4 38.9-26.7 48.5c-6.7 4.1-13.9 7-21.3 8.8V232c0 13.3-10.7 24-24 24s-24-10.7-24-24V220.6c-9.5-2.3-18.2-5.3-25.6-7.8c-2.1-.7-4.1-1.4-6-2c-12.6-4.2-19.4-17.8-15.2-30.4s17.8-19.4 30.4-15.2c2.6 .9 5 1.7 7.3 2.5c13.6 4.6 23.4 7.9 33.9 8.3c8 .3 15.1-1.6 19.2-4.1c1.9-1.2 2.8-2.2 3.2-2.9c.4-.6 .9-1.8 .8-4.1l0-.2c0-1 0-2.1-4-4.6c-5.7-3.6-14.3-6.4-27.1-10.3l-1.9-.6c-10.8-3.2-25-7.5-36.4-14.4c-13.5-8.1-26.5-22-26.6-44.1c-.1-22.9 12.9-38.6 27.7-47.4c6.4-3.8 13.3-6.4 20.2-8.2V24c0-13.3 10.7-24 24-24s24 10.7 24 24zM568.2 336.3c13.1 17.8 9.3 42.8-8.5 55.9L433.1 485.5c-23.4 17.2-51.6 26.5-80.7 26.5H192 32c-17.7 0-32-14.3-32-32V416c0-17.7 14.3-32 32-32H68.8l44.9-36c22.7-18.2 50.9-28 80-28H272h16 64c17.7 0 32 14.3 32 32s-14.3 32-32 32H288 272c-8.8 0-16 7.2-16 16s7.2 16 16 16H392.6l119.7-88.2c17.8-13.1 42.8-9.3 55.9 8.5zM193.6 384l0 0-.9 0c.3 0 .6 0 .9 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="relative mt-3">
+                                        <input
+                                            class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                                            id="emaile" type="email" placeholder="email" />
+                                        <div class="absolute left-0 inset-y-0 flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="h-7 w-7 ml-3 text-gray-400 p-1"
+                                                viewBox="0 0 576 512" fill="currentColor">
+                                                <path
+                                                    d="M312 24V34.5c6.4 1.2 12.6 2.7 18.2 4.2c12.8 3.4 20.4 16.6 17 29.4s-16.6 20.4-29.4 17c-10.9-2.9-21.1-4.9-30.2-5c-7.3-.1-14.7 1.7-19.4 4.4c-2.1 1.3-3.1 2.4-3.5 3c-.3 .5-.7 1.2-.7 2.8c0 .3 0 .5 0 .6c.2 .2 .9 1.2 3.3 2.6c5.8 3.5 14.4 6.2 27.4 10.1l.9 .3c11.1 3.3 25.9 7.8 37.9 15.3c13.7 8.6 26.1 22.9 26.4 44.9c.3 22.5-11.4 38.9-26.7 48.5c-6.7 4.1-13.9 7-21.3 8.8V232c0 13.3-10.7 24-24 24s-24-10.7-24-24V220.6c-9.5-2.3-18.2-5.3-25.6-7.8c-2.1-.7-4.1-1.4-6-2c-12.6-4.2-19.4-17.8-15.2-30.4s17.8-19.4 30.4-15.2c2.6 .9 5 1.7 7.3 2.5c13.6 4.6 23.4 7.9 33.9 8.3c8 .3 15.1-1.6 19.2-4.1c1.9-1.2 2.8-2.2 3.2-2.9c.4-.6 .9-1.8 .8-4.1l0-.2c0-1 0-2.1-4-4.6c-5.7-3.6-14.3-6.4-27.1-10.3l-1.9-.6c-10.8-3.2-25-7.5-36.4-14.4c-13.5-8.1-26.5-22-26.6-44.1c-.1-22.9 12.9-38.6 27.7-47.4c6.4-3.8 13.3-6.4 20.2-8.2V24c0-13.3 10.7-24 24-24s24 10.7 24 24zM568.2 336.3c13.1 17.8 9.3 42.8-8.5 55.9L433.1 485.5c-23.4 17.2-51.6 26.5-80.7 26.5H192 32c-17.7 0-32-14.3-32-32V416c0-17.7 14.3-32 32-32H68.8l44.9-36c22.7-18.2 50.9-28 80-28H272h16 64c17.7 0 32 14.3 32 32s-14.3 32-32 32H288 272c-8.8 0-16 7.2-16 16s7.2 16 16 16H392.6l119.7-88.2c17.8-13.1 42.8-9.3 55.9 8.5zM193.6 384l0 0-.9 0c.3 0 .6 0 .9 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex mt-5">
+                                        <button href="#_"
+                                            class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-bold text-white rounded-md shadow-2xl group border border-black">
+                                            <span
+                                                class="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"></span>
+                                            <span
+                                                class="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>
+                                            <span
+                                                class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent opacity-5"></span>
+                                            <span
+                                                class="absolute bottom-0 left-0 w-4 h-full bg-gradient-to-r from-white to-transparent opacity-5"></span>
+                                            <span
+                                                class="absolute bottom-0 right-0 w-4 h-full bg-gradient-to-l from-white to-transparent opacity-5"></span>
+                                            <span
+                                                class="absolute inset-0 w-full h-full border border-white rounded-md opacity-10"></span>
+                                            <span
+                                                class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5"></span>
+                                            <span class="relative italic text-black" class="btn">save</button>
+                                                                                                    </form>
+                            </div>
+                            <div class="flex mt-3">
+                                <button href="#_"
+                                    class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-bold text-white rounded-md shadow-2xl group border border-black">
+                                    <span
+                                        class="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"></span>
+                                    <span
+                                        class="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>
+                                    <span
+                                        class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent opacity-5"></span>
+                                    <span
+                                        class="absolute bottom-0 left-0 w-4 h-full bg-gradient-to-r from-white to-transparent opacity-5"></span>
+                                    <span
+                                        class="absolute bottom-0 right-0 w-4 h-full bg-gradient-to-l from-white to-transparent opacity-5"></span>
+                                    <span
+                                        class="absolute inset-0 w-full h-full border border-white rounded-md opacity-10"></span>
+                                    <span
+                                        class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5"></span>
+                                    <span class="relative italic text-black" class="btn">plus</button>
+                </div>
+
+</div>
+</dialog>
+</li>           
+                    </ul>
+                    </template>
+                    </li>
+                    </ul>
+            </div>
+            </header>
+            <!-- modal -->
+            <main class="">
+                <div class="grid mb-4 pb-10 px-8 mx-4 rounded-3xl bg-gray-100 border-4 border-green-400">
+
+                    <div class="grid grid-cols-4 gap-6">
+                        <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">
+                            <div class="col-span-12 mt-8">
+                                <div class="flex items-center h-10 intro-y">
+                                    <h2 class="mr-5 text-lg font-medium truncate">Product</h2>
+                                </div>
+                                <div class="grid grid-cols-12 gap-6 mt-5 firstdiv">
+                                </div>
+                                <div class="grid grid-cols-12 gap-6 mt-5 hidden usersdiv">
+                                </div>
+                            </div>
+                            <!--  -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        </div>
+
+
+        <script>
+           
+            console.log("dkhalet ");
+            
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://jsonplaceholder.typicode.com/photos", true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    var output = "";
+                    data.slice(0, 20).forEach((element) => {
+                        output += `<a class="transform hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white border-4 border-green-400"
+                                            href="#">
+                                            <div class="p-5">
+                                                <div class="flex justify-between">
+                                                    <img src="${element.url}" alt="image" class="rounded-lg">
+                                                </div>
+                                                <div class="ml-2 w-full flex-1">
+                                                    <div>
+                                                        <div class="mt-3 text-3xl font-bold leading-8">${element.id}</div>
+                                                        <div class="mt-1 text-base text-gray-600">${element.title}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>`;
+                    });
+                    document.querySelector(".firstdiv").innerHTML = output;
+                }
+            };
+            xhr.send();
+            var xhrusers = new XMLHttpRequest();
+            xhrusers.open("GET", "https://jsonplaceholder.typicode.com/users", true);
+            xhrusers.onreadystatechange = () => {
+                if (xhrusers.readyState == 4 && xhrusers.status == 200) {
+                    var datauser = JSON.parse(xhrusers.responseText);
+                    var usertput = "";
+                    datauser.slice(0, 20).forEach((element) => {
+                        usertput += `<a class="transform hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white border-4 border-green-400"
+                                            href="#">
+                                            <div class="p-5">
+                                                <div class="flex justify-between">
+                                                    <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" alt="image" class="rounded-lg">
+                                                </div>
+                                                <div class="ml-2 w-full flex-1">
+                                                    <div>
+                                                        <div class="mt-3 text-3xl font-bold leading-8">${element.website}</div>
+                                                        <div class="mt-1 text-base text-gray-600">${element.username}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>`;
+                    });
+                    document.querySelector(".usersdiv").innerHTML = usertput;
+                }
+            };
+            xhrusers.send();
+            
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script>
+            function data() {
+
+                return {
+
+                    isSideMenuOpen: false,
+                    toggleSideMenu() {
+                        this.isSideMenuOpen = !this.isSideMenuOpen
+                    },
+                    closeSideMenu() {
+                        this.isSideMenuOpen = false
+                    },
+                    isNotificationsMenuOpen: false,
+                    toggleNotificationsMenu() {
+                        this.isNotificationsMenuOpen = !this.isNotificationsMenuOpen
+                    },
+                    closeNotificationsMenu() {
+                        this.isNotificationsMenuOpen = false
+                    },
+                    isProfileMenuOpen: false,
+                    toggleProfileMenu() {
+                        this.isProfileMenuOpen = !this.isProfileMenuOpen
+                    },
+                    closeProfileMenu() {
+                        this.isProfileMenuOpen = false
+                    },
+                    isPagesMenuOpen: false,
+                    togglePagesMenu() {
+                        this.isPagesMenuOpen = !this.isPagesMenuOpen
+                    },
+
+                }
+            }
+        </script>
+    </body>
+
+    </html>
+</body>
+
+</html>
