@@ -180,7 +180,7 @@ body {
       <h2>Login</h2>
       <form id="loginForm">
         <div class="user-box">
-          <input type="text" name="email" required="">
+          <input type="text" class="email" name="email" required="">
           <label>Email</label>
         </div>
         <div class="user-box">
@@ -197,12 +197,13 @@ body {
           </button>
         </div>
       </form>
+      <h4><a href="supportpage.html">forget password ?</a> </h>
   </div>
 
   <script>
       document.getElementById('loginForm').addEventListener('submit', function(event) {
           event.preventDefault();
-  
+          localStorage.setItem("user",document.querySelector(".email").value)
           const formData = new FormData(event.target);
       
           fetch('http://localhost/Alpha/Back_end/start/middleware.php/Puserslog', {
@@ -211,12 +212,9 @@ body {
           })
           .then(response => response.json()) 
           .then(data => {
-              console.log(data);
-         
+           
+
           })
-          .catch(error => {
-              console.error('Error:', error);
-          });
       });
   </script>
 </body>
